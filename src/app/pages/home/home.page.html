@@ -1,3 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> All Pokemon </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <h1>Home works!</h1>
+  <ion-list>
+    @for (pokemon of pokemonData; track $index) {
+    <ion-item>
+      <ion-label>{{ pokemon.name }}</ion-label>
+      <ion-label
+        ><img src="{{ pokemon.spriteSrc }}" style="width: 30px; height: 30px"
+      /></ion-label>
+    </ion-item>
+    }
+  </ion-list>
 </ion-content>
