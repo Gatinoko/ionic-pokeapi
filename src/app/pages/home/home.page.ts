@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { PokeService } from 'src/app/services/poke-service.service';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
 
 @Component({
   standalone: false,
@@ -10,23 +11,14 @@ import { OverlayEventDetail } from '@ionic/core/components';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  @ViewChild(IonModal) modal!: IonModal;
+  @ViewChild(DetailsModalComponent) detailsModal!: DetailsModalComponent;
 
   pokemonData: any[] = [];
-  isModalOpen = false;
 
   constructor(private pokeService: PokeService) {}
 
-  onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
-    this.isModalOpen = false;
-  }
-
   openModal() {
-    this.isModalOpen = true;
-  }
-
-  dismissModal() {
-    this.modal.dismiss(null);
+    this.detailsModal.isModalOpen = true;
   }
 
   ngOnInit(): void {

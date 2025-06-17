@@ -1,0 +1,19 @@
+<ion-modal [isOpen]="isModalOpen" (willDismiss)="onWillDismiss($event)">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button
+            defaultHref=""
+            (click)="dismissModal()"
+          ></ion-back-button>
+        </ion-buttons>
+        <ion-title>Welcome</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding">
+      <h1>poke stuff here</h1>
+    </ion-content>
+  </ng-template>
+</ion-modal>
