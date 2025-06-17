@@ -9,13 +9,9 @@ import { library, playCircle, radio, search } from 'ionicons/icons';
   selector: 'app-bottom-nav',
   templateUrl: './bottom-nav.component.html',
   styleUrls: ['./bottom-nav.component.scss'],
-  imports: [
-    IonicModule,
-    RouterModule,
-  ],
+  imports: [IonicModule, RouterModule],
 })
 export class BottomNavComponent {
-
   constructor() {
     addIcons({ library, playCircle, radio, search });
   }
