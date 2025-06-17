@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonModal } from '@ionic/angular';
 import { PokeService } from 'src/app/services/poke-service.service';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   standalone: false,
@@ -8,9 +10,24 @@ import { PokeService } from 'src/app/services/poke-service.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public pokemonData: any[] = [];
+  @ViewChild(IonModal) modal!: IonModal;
+
+  pokemonData: any[] = [];
+  isModalOpen = false;
 
   constructor(private pokeService: PokeService) {}
+
+  onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
+    this.isModalOpen = false;
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  dismissModal() {
+    this.modal.dismiss(null);
+  }
 
   ngOnInit(): void {
     this.pokeService.getAllPokemon().subscribe((res) => {
