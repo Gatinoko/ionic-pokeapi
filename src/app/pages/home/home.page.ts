@@ -3,6 +3,7 @@ import { IonModal } from '@ionic/angular';
 import { PokeService } from 'src/app/services/poke-service.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
+import { Pokemon } from 'src/app/types/Pokemon';
 
 @Component({
   standalone: false,
@@ -16,6 +17,23 @@ export class HomePage implements OnInit {
   pokemonData: any[] = [];
 
   constructor(private pokeService: PokeService) {}
+
+  listItemOnClickHandler(e: MouseEvent, pokeName: string) {
+    this.openModal();
+    this.setModalData(pokeName);
+  }
+
+  setModalData(pokeName: string) {
+    this.pokeService.getPokemon(pokeName).subscribe((res) => {
+      let data: Pokemon;
+
+      // Assigns PokeAPI response to data object
+      data = res;
+
+      // Sets DetailsModal component pokeInfo property
+      this.detailsModal.pokeInfo = data;
+    });
+  }
 
   openModal() {
     this.detailsModal.isModalOpen = true;

@@ -9,7 +9,7 @@
 
   <ion-list>
     @for (pokemon of pokemonData; track $index) {
-    <ion-item button (click)="openModal()">
+    <ion-item button (click)="listItemOnClickHandler($event, pokemon.name)">
       <ion-label>{{ pokemon.name }}</ion-label>
       <ion-label
         ><img src="{{ pokemon.spriteSrc }}" style="width: 30px; height: 30px"
