@@ -1,16 +1,24 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { BottomNavComponent } from './components/bottom-nav/bottom-nav.component';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'tabs',
+    component: BottomNavComponent,
+    children: [
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./home/home.module').then((m) => m.HomePageModule),
+      },
+    ],
   },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
+    redirectTo: '/tabs/home',
+    pathMatch: 'full',
+  }
 ];
 
 @NgModule({
