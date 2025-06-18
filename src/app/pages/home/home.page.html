@@ -10,10 +10,19 @@
   <ion-list>
     @for (pokemon of pokemonData; track $index) {
     <ion-item button (click)="listItemOnClickHandler($event, pokemon.name)">
-      <ion-label>{{ pokemon.name }}</ion-label>
-      <ion-label
-        ><img src="{{ pokemon.spriteSrc }}" style="width: 30px; height: 30px"
-      /></ion-label>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="auto">
+            <ion-img
+              src="{{ pokemon.sprites.front_default }}"
+              style="width: 30px; height: 30px"
+            />
+          </ion-col>
+          <ion-col>
+            <ion-label>{{ pokemon.name }}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-item>
     }
   </ion-list>

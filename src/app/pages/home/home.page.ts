@@ -15,7 +15,7 @@ import { FavoritesService } from 'src/app/services/favorites-service.service';
 export class HomePage implements OnInit {
   @ViewChild(DetailsModalComponent) detailsModal!: DetailsModalComponent;
 
-  pokemonData: any[] = [];
+  pokemonData: Pick<Pokemon, 'name' | 'sprites'>[] = [];
 
   constructor(
     private pokeService: PokeService,
@@ -49,17 +49,30 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pokeService.getAllPokemon().subscribe((res) => {
-      let data: any[] = [];
+    this.pokeService.getAllPokemon().subscribe((res: any) => {
+      let results: { name: string; url: string }[];
+      let data: Pick<Pokemon, 'name' | 'sprites'>[] = [];
 
-      // Assigns PokeAPI response to data array
-      data = res.results;
+      // Assigns PokeAPI response to results array
+      results = res.results;
 
-      // Adds a spriteSrc property to each data array member
-      data.forEach((v, i) => {
-        v.spriteSrc = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-          i + 1
-        }.png`;
+      // Adds sprites property back to each member in the array
+      results.forEach((v, i) => {
+        data.push({
+          name: v.name,
+          sprites: {
+            front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
+              i + 1
+            }.png`,
+            back_default: null,
+            back_female: null,
+            back_shiny: null,
+            back_shiny_female: null,
+            front_female: null,
+            front_shiny: null,
+            front_shiny_female: null,
+          },
+        });
       });
 
       // Assigns transformed data array to pokemonData array
