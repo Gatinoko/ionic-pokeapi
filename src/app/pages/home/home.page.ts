@@ -47,36 +47,51 @@ export class HomePage implements OnInit {
   openModal() {
     this.detailsModal.isModalOpen = true;
   }
+  private processApiData(res: any) {
+    let processedData: {
+      count: number;
+      next: string | null;
+      previous: string | null;
+      results: Pick<Pokemon, 'name' | 'sprites'>[];
+    } = {
+      count: 0,
+      next: null,
+      previous: null,
+      results: [],
+    };
+
+    // Debug
+    // console.log(res);
+
+    // Adds "sprites" property into original API call object
+    res.results.forEach((v: { name: string; url: string }, i: number) => {
+      const pokeId = v.url.split('/').filter(Boolean).pop();
+
+      // Push to data array
+      processedData.results.push({
+        name: v.name,
+        sprites: {
+          front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeId}.png`,
+          back_default: null,
+          back_female: null,
+          back_shiny: null,
+          back_shiny_female: null,
+          front_female: null,
+          front_shiny: null,
+          front_shiny_female: null,
+        },
+      });
+    });
+
+    return processedData;
+  }
 
   ngOnInit(): void {
     this.pokeService.getAllPokemon().subscribe((res: any) => {
-      let results: { name: string; url: string }[];
-      let data: Pick<Pokemon, 'name' | 'sprites'>[] = [];
-
-      // Assigns PokeAPI response to results array
-      results = res.results;
-
-      // Adds sprites property back to each member in the array
-      results.forEach((v, i) => {
-        data.push({
-          name: v.name,
-          sprites: {
-            front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${
-              i + 1
-            }.png`,
-            back_default: null,
-            back_female: null,
-            back_shiny: null,
-            back_shiny_female: null,
-            front_female: null,
-            front_shiny: null,
-            front_shiny_female: null,
-          },
-        });
-      });
+      const data = this.processApiData(res);
 
       // Assigns transformed data array to pokemonData array
-      this.pokemonData = data;
+      this.pokemonData = data.results;
     });
   }
 }
