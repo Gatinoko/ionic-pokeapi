@@ -8,12 +8,118 @@
             (click)="dismissModal()"
           ></ion-back-button>
         </ion-buttons>
-        <ion-title>Welcome</ion-title>
+        <ion-title>{{ pokeInfo.name }} Details</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content class="ion-padding">
-      <h1>poke stuff here</h1>
+      <ion-grid>
+        <!-- Male sprites -->
+        <ion-row>
+          <ion-col>
+            <img [src]="pokeInfo.sprites.front_default" />
+            <img [src]="pokeInfo.sprites.back_default" />
+          </ion-col>
+        </ion-row>
+
+        <!-- Female sprites (if available) -->
+        <ion-row>
+          <ion-col>
+            <img [src]="pokeInfo.sprites.front_female" />
+            <img [src]="pokeInfo.sprites.back_female" />
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-list lines="none">
+        <!-- Name -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label><h1>Name</h1></ion-label>
+                <ion-text
+                  ><p>{{ pokeInfo.name }}</p></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <!-- Abilities -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label><h1>Abilities</h1></ion-label>
+                @for (ability of pokeInfo.abilities; track $index) {
+                <ion-text
+                  ><p>{{ ability.ability.name }}</p></ion-text
+                >
+                }
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <!-- Base experience -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label><h1>Base Experience</h1></ion-label>
+                <ion-text
+                  ><p>{{ pokeInfo.base_experience }}</p></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <!-- Height -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label><h1>Height</h1></ion-label>
+                <ion-text
+                  ><p>{{ pokeInfo.height }}</p></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <!-- Types -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label><h1>Types</h1></ion-label>
+                @for (type of pokeInfo.types; track $index) {
+                <ion-text
+                  ><p>{{ type.type.name }}</p></ion-text
+                >
+                }
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+
+        <!-- Weight -->
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label><h1>Weight</h1></ion-label>
+                <ion-text
+                  ><p>{{ pokeInfo.weight }}</p></ion-text
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ng-template>
 </ion-modal>
