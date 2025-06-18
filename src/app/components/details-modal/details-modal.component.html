@@ -29,6 +29,20 @@
             <img [src]="pokeInfo.sprites.back_female" />
           </ion-col>
         </ion-row>
+
+        <!-- Favorite button -->
+        <ion-row>
+          <ion-button
+            size="large"
+            [color]="isPokeFavorited ? 'warning' : 'light'"
+            (click)="favoriteButtonOnClickHandler($event)"
+          >
+            <ion-icon
+              size="large"
+              [name]="isPokeFavorited ? 'star' : 'star-outline'"
+            ></ion-icon>
+          </ion-button>
+        </ion-row>
       </ion-grid>
 
       <ion-list lines="none">

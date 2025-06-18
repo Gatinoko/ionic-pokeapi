@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { IonicModule, IonModal } from '@ionic/angular';
 import { Pokemon } from 'src/app/types/Pokemon';
+import { FavoritesService } from 'src/app/services/favorites-service.service';
 
 @Component({
   standalone: true,
@@ -14,6 +15,7 @@ export class DetailsModalComponent {
   @ViewChild(IonModal) modal!: IonModal;
 
   isModalOpen = false;
+  isPokeFavorited = false;
   pokeInfo: Pokemon = {
     id: 0,
     name: '',
@@ -34,7 +36,12 @@ export class DetailsModalComponent {
     weight: 0,
   };
 
-  constructor() {}
+  constructor(private favoritesService: FavoritesService) {}
+
+  favoriteButtonOnClickHandler(e: MouseEvent) {
+    this.favoritesService.toggleFavorite(this.pokeInfo);
+    this.isPokeFavorited = this.favoritesService.isFavorite(this.pokeInfo.name);
+  }
 
   onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
     this.isModalOpen = false;

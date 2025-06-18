@@ -4,6 +4,7 @@ import { PokeService } from 'src/app/services/poke-service.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
 import { Pokemon } from 'src/app/types/Pokemon';
+import { FavoritesService } from 'src/app/services/favorites-service.service';
 
 @Component({
   standalone: false,
@@ -16,7 +17,10 @@ export class HomePage implements OnInit {
 
   pokemonData: any[] = [];
 
-  constructor(private pokeService: PokeService) {}
+  constructor(
+    private pokeService: PokeService,
+    private favoritesService: FavoritesService
+  ) {}
 
   listItemOnClickHandler(e: MouseEvent, pokeName: string) {
     this.openModal();
@@ -32,6 +36,11 @@ export class HomePage implements OnInit {
 
       // Sets DetailsModal component pokeInfo property
       this.detailsModal.pokeInfo = data;
+
+      // Sets DetailsModal component isPokeFavorited property
+      this.detailsModal.isPokeFavorited = this.favoritesService.isFavorite(
+        data.name
+      );
     });
   }
 
