@@ -47,10 +47,6 @@ export class DetailsModalComponent {
     this.isModalOpen = false;
   }
 
-  openModal() {
-    this.isModalOpen = true;
-  }
-
   dismissModal() {
     this.modal.dismiss(null);
   }
