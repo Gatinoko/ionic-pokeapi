@@ -33,9 +33,9 @@ export class HomePage implements OnInit {
     private favoritesService: FavoritesService
   ) {}
 
-  listItemOnClickHandler(e: MouseEvent, pokeName: string) {
+  pokeListItemOnClickHandler(e: { e: MouseEvent; pokeName: string }) {
     this.openModal();
-    this.setModalData(pokeName);
+    this.setModalData(e.pokeName);
   }
 
   setModalData(pokeName: string) {

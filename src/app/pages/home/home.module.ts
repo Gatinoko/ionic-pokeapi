@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DetailsModalComponent } from '../../components/details-modal/details-modal.component';
 import { PokelistPaginationComponent } from '../../components/pokelist-pagination/pokelist-pagination.component';
+import { PokelistComponent } from '../../components/pokelist/pokelist.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PokelistPaginationComponent } from '../../components/pokelist-paginatio
     HomePageRoutingModule,
     DetailsModalComponent,
     PokelistPaginationComponent,
+    PokelistComponent,
   ],
   declarations: [HomePage],
 })
