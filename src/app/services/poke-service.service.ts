@@ -13,8 +13,10 @@ export class PokeService {
   /**
    * Returns all available Pokemon
    */
-  getAllPokemon(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/pokemon`);
+  getAllPokemon(offset?: number): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl}/pokemon?limit=20${offset ? `&offset=${offset}` : ''}`
+    );
   }
 
   /**
