@@ -53,8 +53,6 @@ export class FavoritesPage implements ViewDidEnter {
       // Assigns PokeAPI response to data object
       data = res;
 
-      console.log(data);
-
       // Sets DetailsModal component pokeInfo property
       this.detailsModal.pokeInfo = data;
 

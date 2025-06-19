@@ -128,9 +128,6 @@ export class HomePage implements OnInit {
       results: [],
     };
 
-    // Debug
-    // console.log(res);
-
     // Assigns the server response's "count", "next", and "previous" properties to processedData object
     processedData.count = res.count;
     processedData.next = res.next;
