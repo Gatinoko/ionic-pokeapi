@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DetailsModalComponent } from '../../components/details-modal/details-modal.component';
+import { PokelistPaginationComponent } from '../../components/pokelist-pagination/pokelist-pagination.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { DetailsModalComponent } from '../../components/details-modal/details-mo
     IonicModule,
     HomePageRoutingModule,
     DetailsModalComponent,
+    PokelistPaginationComponent,
   ],
   declarations: [HomePage],
 })

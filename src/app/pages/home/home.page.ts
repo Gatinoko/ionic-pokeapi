@@ -28,9 +28,6 @@ export class HomePage implements OnInit {
     results: [],
   };
 
-  currentPage: number = 1;
-  totalPages?: number = undefined;
-
   constructor(
     private pokeService: PokeService,
     private favoritesService: FavoritesService
@@ -62,45 +59,16 @@ export class HomePage implements OnInit {
     this.detailsModal.isModalOpen = true;
   }
 
-  paginationPrevButtonOnClickHandler() {
-    const prevPageUrl = this.pokemonData.previous;
-
-    if (prevPageUrl) {
-      const parsedQueryParams = parseQueryParams(prevPageUrl);
-      const pageOffsetValue = Number(parsedQueryParams['offset']);
-
-      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
-        const processedData = this.processApiData(res);
-
-        // Assigns transformed data array to pokemonData array
-        this.pokemonData = processedData;
-
-        // Lowers pagination currentPage by 1
-        this.currentPage--;
-      });
-    }
+  onPokemonDataChange(data: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Pick<Pokemon, 'name' | 'sprites'>[];
+  }) {
+    this.pokemonData = data;
   }
 
-  paginationNextButtonOnClickHandler() {
-    const nextPageUrl = this.pokemonData.next;
-
-    if (nextPageUrl) {
-      const parsedQueryParams = parseQueryParams(nextPageUrl);
-      const pageOffsetValue = Number(parsedQueryParams['offset']);
-
-      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
-        const processedData = this.processApiData(res);
-
-        // Assigns transformed data array to pokemonData array
-        this.pokemonData = processedData;
-
-        // Raises pagination currentPage by 1
-        this.currentPage++;
-      });
-    }
-  }
-
-  private processApiData(res: any) {
+  processApiData(res: any) {
     let processedData: {
       count: number;
       next: string | null;
@@ -150,9 +118,6 @@ export class HomePage implements OnInit {
 
       // Assigns transformed data array to pokemonData array
       this.pokemonData = processedData;
-
-      // Assigns total pages pagination property
-      this.totalPages = Math.ceil(this.pokemonData.count / 20);
     });
   }
 }

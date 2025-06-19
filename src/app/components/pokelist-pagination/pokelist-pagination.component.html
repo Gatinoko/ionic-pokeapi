@@ -1,0 +1,13 @@
+<ion-grid style="width: 100%">
+  <ion-row class="ion-align-items-center">
+    <ion-col size="4" class="ion-text-end">
+      <ion-button (click)="paginationPrevButtonOnClickHandler()">◀</ion-button>
+    </ion-col>
+    <ion-col size="4" class="ion-text-center">
+      <ion-text> Page {{ currentPage }} of {{ totalPages }} </ion-text>
+    </ion-col>
+    <ion-col size="4" class="ion-text-start">
+      <ion-button (click)="paginationNextButtonOnClickHandler()">▶</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
