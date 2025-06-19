@@ -8,6 +8,7 @@ import { FavoritesPageRoutingModule } from './favorites-routing.module';
 
 import { FavoritesPage } from './favorites.page';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
+import { PokelistComponent } from '../../components/pokelist/pokelist.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { DetailsModalComponent } from 'src/app/components/details-modal/details-
     IonicModule,
     FavoritesPageRoutingModule,
     DetailsModalComponent,
+    PokelistComponent,
   ],
   declarations: [FavoritesPage],
 })

@@ -24,9 +24,9 @@ export class FavoritesPage implements ViewDidEnter {
   /**
    * Handler for when the user clicks on individual pokelist items
    */
-  listItemOnClickHandler(e: MouseEvent, pokeName: string) {
+  listItemOnClickHandler(e: { e: MouseEvent; pokeName: string }) {
     this.openModal();
-    this.setModalData(pokeName);
+    this.setModalData(e.pokeName);
   }
 
   /**
