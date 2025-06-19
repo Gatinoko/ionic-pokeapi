@@ -10,7 +10,7 @@
   <div style="height: 100%; display: flex; flex-direction: column">
     <!-- List with all pokemon -->
     <ion-list style="overflow-y: scroll">
-      @for (pokemon of pokemonData.results; track $index) {
+      @for (pokemon of pokeData.results; track $index) {
       <ion-item button (click)="listItemOnClickHandler($event, pokemon.name)">
         <ion-grid>
           <ion-row class="ion-align-items-center">
@@ -31,9 +31,9 @@
 
     <!-- Pagination controls -->
     <app-pokelist-pagination
-      [pokemonData]="this.pokemonData"
+      [pokeData]="this.pokeData"
       [processApiData]="this.processApiData"
-      (pokemonDataEmitter)="onPokemonDataChange($event)"
+      (pokeDataEmitter)="onPokeDataChange($event)"
     />
   </div>
 </ion-content>

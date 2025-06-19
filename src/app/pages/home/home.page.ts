@@ -16,7 +16,7 @@ import { parseQueryParams } from 'src/utils/parseQueryParams';
 export class HomePage implements OnInit {
   @ViewChild(DetailsModalComponent) detailsModal!: DetailsModalComponent;
 
-  pokemonData: {
+  pokeData: {
     count: number;
     next: string | null;
     previous: string | null;
@@ -59,13 +59,13 @@ export class HomePage implements OnInit {
     this.detailsModal.isModalOpen = true;
   }
 
-  onPokemonDataChange(data: {
+  onPokeDataChange(data: {
     count: number;
     next: string | null;
     previous: string | null;
     results: Pick<Pokemon, 'name' | 'sprites'>[];
   }) {
-    this.pokemonData = data;
+    this.pokeData = data;
   }
 
   processApiData(res: any) {
@@ -117,7 +117,7 @@ export class HomePage implements OnInit {
       const processedData = this.processApiData(res);
 
       // Assigns transformed data array to pokemonData array
-      this.pokemonData = processedData;
+      this.pokeData = processedData;
     });
   }
 }

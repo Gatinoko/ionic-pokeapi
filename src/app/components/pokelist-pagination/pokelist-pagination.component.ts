@@ -19,7 +19,7 @@ import { parseQueryParams } from 'src/utils/parseQueryParams';
   imports: [IonicModule],
 })
 export class PokelistPaginationComponent implements OnChanges {
-  @Input({ required: true }) pokemonData!: {
+  @Input({ required: true }) pokeData!: {
     count: number;
     next: string | null;
     previous: string | null;
@@ -31,7 +31,7 @@ export class PokelistPaginationComponent implements OnChanges {
     previous: string | null;
     results: Pick<Pokemon, 'name' | 'sprites'>[];
   };
-  @Output() pokemonDataEmitter = new EventEmitter<{
+  @Output() pokeDataEmitter = new EventEmitter<{
     count: number;
     next: string | null;
     previous: string | null;
@@ -44,7 +44,7 @@ export class PokelistPaginationComponent implements OnChanges {
   constructor(private pokeService: PokeService) {}
 
   paginationPrevButtonOnClickHandler() {
-    const prevPageUrl = this.pokemonData.previous;
+    const prevPageUrl = this.pokeData.previous;
 
     if (prevPageUrl) {
       const parsedQueryParams = parseQueryParams(prevPageUrl);
@@ -54,7 +54,7 @@ export class PokelistPaginationComponent implements OnChanges {
         const processedData = this.processApiData(res);
 
         // Assigns transformed data array to pokemonData array
-        this.pokemonDataEmitter.emit(processedData);
+        this.pokeDataEmitter.emit(processedData);
 
         // Lowers pagination currentPage by 1
         this.currentPage--;
@@ -63,7 +63,7 @@ export class PokelistPaginationComponent implements OnChanges {
   }
 
   paginationNextButtonOnClickHandler() {
-    const nextPageUrl = this.pokemonData.next;
+    const nextPageUrl = this.pokeData.next;
 
     if (nextPageUrl) {
       const parsedQueryParams = parseQueryParams(nextPageUrl);
@@ -73,7 +73,7 @@ export class PokelistPaginationComponent implements OnChanges {
         const processedData = this.processApiData(res);
 
         // Assigns transformed data array to pokemonData array
-        this.pokemonDataEmitter.emit(processedData);
+        this.pokeDataEmitter.emit(processedData);
 
         // Raises pagination currentPage by 1
         this.currentPage++;
@@ -83,6 +83,6 @@ export class PokelistPaginationComponent implements OnChanges {
 
   ngOnChanges() {
     // Assigns total pages pagination property
-    this.totalPages = Math.ceil(this.pokemonData.count / 20);
+    this.totalPages = Math.ceil(this.pokeData.count / 20);
   }
 }
