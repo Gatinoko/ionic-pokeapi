@@ -15,39 +15,91 @@
     </ion-header>
 
     <ion-content>
-      <ion-grid>
+      <!-- Favorite button -->
+      <ion-fab
+        class="ion-fab"
+        (click)="favoriteButtonOnClickHandler($event)"
+        slot="fixed"
+        vertical="bottom"
+        horizontal="end"
+      >
+        <ion-fab-button
+          size="large"
+          [color]="isPokeFavorited ? 'warning' : 'light'"
+        >
+          <ion-icon
+            size="large"
+            [name]="isPokeFavorited ? 'star' : 'star-outline'"
+          ></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+      <!-- Male and female sprites -->
+      <ion-grid class="ion-grid-sprites-wrapper">
         <!-- Male sprites -->
-        <ion-row>
-          <ion-col>
-            <img [src]="pokeInfo.sprites.front_default" />
-            <img [src]="pokeInfo.sprites.back_default" />
+        <ion-row class="ion-justify-content-center">
+          <ion-col class="ion-text-center" size="auto">
+            <!-- Text and images -->
+            <ion-grid class="ion-grid-sprites">
+              <ion-row>
+                <ion-col>Male sprites:</ion-col>
+              </ion-row>
+              <ion-row class="ion-grid-row">
+                @if (pokeInfo.sprites.front_default &&
+                pokeInfo.sprites.back_default) {
+                <ion-img
+                  class="sprite-img"
+                  [src]="pokeInfo.sprites.front_default"
+                />
+                <ion-img
+                  class="sprite-img"
+                  [src]="pokeInfo.sprites.back_default"
+                />
+                } @else {
+                <ion-col>
+                  <ion-text class="no-sprite-text"
+                    >No male sprites available</ion-text
+                  >
+                </ion-col>
+                }
+              </ion-row>
+            </ion-grid>
           </ion-col>
         </ion-row>
 
         <!-- Female sprites (if available) -->
-        <ion-row>
-          <ion-col>
-            <img [src]="pokeInfo.sprites.front_female" />
-            <img [src]="pokeInfo.sprites.back_female" />
+        <ion-row class="ion-justify-content-center">
+          <ion-col class="ion-text-center" size="auto">
+            <!-- Text and images -->
+            <ion-grid class="ion-grid-sprites">
+              <ion-row>
+                <ion-col>Female sprites:</ion-col>
+              </ion-row>
+              <ion-row class="ion-grid-row ion-align-items-center">
+                @if (pokeInfo.sprites.front_female &&
+                pokeInfo.sprites.back_female) {
+                <ion-img
+                  class="sprite-img"
+                  [src]="pokeInfo.sprites.front_female"
+                />
+                <ion-img
+                  class="sprite-img"
+                  [src]="pokeInfo.sprites.back_female"
+                />
+                } @else {
+                <ion-col>
+                  <ion-text class="no-sprite-text"
+                    >No female sprites available</ion-text
+                  >
+                </ion-col>
+                }
+              </ion-row>
+            </ion-grid>
           </ion-col>
-        </ion-row>
-
-        <!-- Favorite button -->
-        <ion-row>
-          <ion-button
-            size="large"
-            [color]="isPokeFavorited ? 'warning' : 'light'"
-            (click)="favoriteButtonOnClickHandler($event)"
-          >
-            <ion-icon
-              size="large"
-              [name]="isPokeFavorited ? 'star' : 'star-outline'"
-            ></ion-icon>
-          </ion-button>
         </ion-row>
       </ion-grid>
 
-      <ion-list lines="full" inset="false">
+      <ion-list class="ion-list" lines="full" inset="true">
         <!-- Name -->
         <ion-item>
           <ion-grid>

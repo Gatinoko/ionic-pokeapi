@@ -1,0 +1,35 @@
+.ion-fab {
+  margin: 0 2rem 1rem 0;
+}
+
+.ion-grid-sprites-wrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ion-grid-sprites {
+  & {
+    background-color: var(--ion-item-background);
+    border-radius: 1rem;
+  }
+
+  .ion-grid-row {
+    min-height: 7.5rem;
+    min-width: 15rem;
+  }
+
+  .sprite-img {
+    height: 7.5rem;
+    width: 7.5rem;
+  }
+
+  .no-sprite-text {
+    opacity: 50%;
+  }
+}
+
+.ion-list {
+  border-radius: 1rem;
+}
