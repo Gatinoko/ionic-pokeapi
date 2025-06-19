@@ -21,11 +21,17 @@ export class FavoritesPage implements ViewDidEnter {
     private favoritesService: FavoritesService
   ) {}
 
+  /**
+   * Handler for when the user clicks on individual pokelist items
+   */
   listItemOnClickHandler(e: MouseEvent, pokeName: string) {
     this.openModal();
     this.setModalData(pokeName);
   }
 
+  /**
+   * Sets the details modal data to the pokemon data the user has clicked
+   */
   setModalData(pokeName: string) {
     this.pokeService.getPokemon(pokeName).subscribe((res) => {
       let data: Pokemon;
@@ -45,6 +51,9 @@ export class FavoritesPage implements ViewDidEnter {
     });
   }
 
+  /**
+   * Programatically opens the details modal
+   */
   openModal() {
     this.detailsModal.isModalOpen = true;
   }

@@ -36,21 +36,33 @@ export class HomePage implements OnInit {
     private favoritesService: FavoritesService
   ) {}
 
+  /**
+   * Handler for when the user clicks on individual pokelist items
+   */
   pokeListItemOnClickHandler(e: { e: MouseEvent; pokeName: string }) {
     this.openModal();
     this.setModalData(e.pokeName);
   }
 
+  /**
+   * Handler for when the user clicks on the "previous" pagination button
+   */
   paginationPrevButtonOnClickHandler(e: { e: MouseEvent }) {
     const prevPageUrl = this.pokeData.previous;
     if (prevPageUrl) this.flipPokeList(prevPageUrl);
   }
 
+  /**
+   * Handler for when the user clicks on the "next" pagination button
+   */
   paginationNextButtonOnClickHandler(e: { e: MouseEvent }) {
     const nextPageUrl = this.pokeData.next;
     if (nextPageUrl) this.flipPokeList(nextPageUrl);
   }
 
+  /**
+   * Updates pokeData according to the pagination direction
+   */
   flipPokeList(url: string) {
     const parsedQueryParams = parseQueryParams(url);
     const pageOffsetValue = Number(parsedQueryParams['offset']);
@@ -66,6 +78,9 @@ export class HomePage implements OnInit {
     });
   }
 
+  /**
+   * Sets the details modal data to the pokemon data the user has clicked
+   */
   setModalData(pokeName: string) {
     this.pokeService.getPokemon(pokeName).subscribe((res) => {
       let data: Pokemon;
@@ -83,10 +98,16 @@ export class HomePage implements OnInit {
     });
   }
 
+  /**
+   * Programatically opens the details modal
+   */
   openModal() {
     this.detailsModal.isModalOpen = true;
   }
 
+  /**
+   * Processes and returns the API data with additional properties
+   */
   processApiData(res: any) {
     let processedData: {
       count: number;
@@ -131,6 +152,9 @@ export class HomePage implements OnInit {
     return processedData;
   }
 
+  /**
+   * Populates pokeData on first page load
+   */
   populatePokeData() {
     this.pokeService.getAllPokemon().subscribe((res: any) => {
       const processedData = this.processApiData(res);
