@@ -43,40 +43,27 @@ export class HomePage implements OnInit {
 
   paginationPrevButtonOnClickHandler(e: { e: MouseEvent }) {
     const prevPageUrl = this.pokeData.previous;
-
-    if (prevPageUrl) {
-      const parsedQueryParams = parseQueryParams(prevPageUrl);
-      const pageOffsetValue = Number(parsedQueryParams['offset']);
-
-      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
-        const processedData = this.processApiData(res);
-
-        // Assigns transformed data array to pokemonData array
-        this.pokeData = processedData;
-
-        // Lowers pagination currentPage by 1
-        this.pokeListPagination.currentPage--;
-      });
-    }
+    if (prevPageUrl) this.flipPokeList(prevPageUrl);
   }
 
   paginationNextButtonOnClickHandler(e: { e: MouseEvent }) {
     const nextPageUrl = this.pokeData.next;
+    if (nextPageUrl) this.flipPokeList(nextPageUrl);
+  }
 
-    if (nextPageUrl) {
-      const parsedQueryParams = parseQueryParams(nextPageUrl);
-      const pageOffsetValue = Number(parsedQueryParams['offset']);
+  flipPokeList(url: string) {
+    const parsedQueryParams = parseQueryParams(url);
+    const pageOffsetValue = Number(parsedQueryParams['offset']);
 
-      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
-        const processedData = this.processApiData(res);
+    this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
+      const processedData = this.processApiData(res);
 
-        // Assigns transformed data array to pokemonData array
-        this.pokeData = processedData;
+      // Assigns transformed data array to pokemonData array
+      this.pokeData = processedData;
 
-        // Raises pagination currentPage by 1
-        this.pokeListPagination.currentPage++;
-      });
-    }
+      // Raises pagination currentPage by 1
+      this.pokeListPagination.currentPage++;
+    });
   }
 
   setModalData(pokeName: string) {
