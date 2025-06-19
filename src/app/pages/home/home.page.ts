@@ -6,6 +6,7 @@ import { DetailsModalComponent } from 'src/app/components/details-modal/details-
 import { Pokemon } from 'src/app/types/Pokemon';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
 import { parseQueryParams } from 'src/utils/parseQueryParams';
+import { PokelistPaginationComponent } from 'src/app/components/pokelist-pagination/pokelist-pagination.component';
 
 @Component({
   standalone: false,
@@ -15,6 +16,8 @@ import { parseQueryParams } from 'src/utils/parseQueryParams';
 })
 export class HomePage implements OnInit {
   @ViewChild(DetailsModalComponent) detailsModal!: DetailsModalComponent;
+  @ViewChild(PokelistPaginationComponent)
+  pokeListPagination!: PokelistPaginationComponent;
 
   pokeData: {
     count: number;
@@ -38,6 +41,44 @@ export class HomePage implements OnInit {
     this.setModalData(e.pokeName);
   }
 
+  paginationPrevButtonOnClickHandler(e: { e: MouseEvent }) {
+    const prevPageUrl = this.pokeData.previous;
+
+    if (prevPageUrl) {
+      const parsedQueryParams = parseQueryParams(prevPageUrl);
+      const pageOffsetValue = Number(parsedQueryParams['offset']);
+
+      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
+        const processedData = this.processApiData(res);
+
+        // Assigns transformed data array to pokemonData array
+        this.pokeData = processedData;
+
+        // Lowers pagination currentPage by 1
+        this.pokeListPagination.currentPage--;
+      });
+    }
+  }
+
+  paginationNextButtonOnClickHandler(e: { e: MouseEvent }) {
+    const nextPageUrl = this.pokeData.next;
+
+    if (nextPageUrl) {
+      const parsedQueryParams = parseQueryParams(nextPageUrl);
+      const pageOffsetValue = Number(parsedQueryParams['offset']);
+
+      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
+        const processedData = this.processApiData(res);
+
+        // Assigns transformed data array to pokemonData array
+        this.pokeData = processedData;
+
+        // Raises pagination currentPage by 1
+        this.pokeListPagination.currentPage++;
+      });
+    }
+  }
+
   setModalData(pokeName: string) {
     this.pokeService.getPokemon(pokeName).subscribe((res) => {
       let data: Pokemon;
@@ -57,15 +98,6 @@ export class HomePage implements OnInit {
 
   openModal() {
     this.detailsModal.isModalOpen = true;
-  }
-
-  onPokeDataChange(data: {
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: Pick<Pokemon, 'name' | 'sprites'>[];
-  }) {
-    this.pokeData = data;
   }
 
   processApiData(res: any) {

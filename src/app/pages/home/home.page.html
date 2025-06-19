@@ -18,8 +18,8 @@
     <!-- Pagination controls -->
     <app-pokelist-pagination
       [pokeData]="this.pokeData"
-      [processApiData]="this.processApiData"
-      (pokeDataEmitter)="onPokeDataChange($event)"
+      (paginationPrevButtonClickEmitter)="this.paginationPrevButtonOnClickHandler($event)"
+      (paginationNextButtonClickEmitter)="this.paginationNextButtonOnClickHandler($event)"
     />
   </div>
 </ion-content>

@@ -25,17 +25,12 @@ export class PokelistPaginationComponent implements OnChanges {
     previous: string | null;
     results: Pick<Pokemon, 'name' | 'sprites'>[];
   };
-  @Input({ required: true }) processApiData!: (res: any) => {
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: Pick<Pokemon, 'name' | 'sprites'>[];
-  };
-  @Output() pokeDataEmitter = new EventEmitter<{
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: Pick<Pokemon, 'name' | 'sprites'>[];
+
+  @Output() paginationPrevButtonClickEmitter = new EventEmitter<{
+    e: MouseEvent;
+  }>();
+  @Output() paginationNextButtonClickEmitter = new EventEmitter<{
+    e: MouseEvent;
   }>();
 
   currentPage: number = 1;
@@ -43,42 +38,12 @@ export class PokelistPaginationComponent implements OnChanges {
 
   constructor(private pokeService: PokeService) {}
 
-  paginationPrevButtonOnClickHandler() {
-    const prevPageUrl = this.pokeData.previous;
-
-    if (prevPageUrl) {
-      const parsedQueryParams = parseQueryParams(prevPageUrl);
-      const pageOffsetValue = Number(parsedQueryParams['offset']);
-
-      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
-        const processedData = this.processApiData(res);
-
-        // Assigns transformed data array to pokemonData array
-        this.pokeDataEmitter.emit(processedData);
-
-        // Lowers pagination currentPage by 1
-        this.currentPage--;
-      });
-    }
+  paginationPrevButtonOnClickHandler(e: MouseEvent) {
+    this.paginationPrevButtonClickEmitter.emit({ e });
   }
 
-  paginationNextButtonOnClickHandler() {
-    const nextPageUrl = this.pokeData.next;
-
-    if (nextPageUrl) {
-      const parsedQueryParams = parseQueryParams(nextPageUrl);
-      const pageOffsetValue = Number(parsedQueryParams['offset']);
-
-      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
-        const processedData = this.processApiData(res);
-
-        // Assigns transformed data array to pokemonData array
-        this.pokeDataEmitter.emit(processedData);
-
-        // Raises pagination currentPage by 1
-        this.currentPage++;
-      });
-    }
+  paginationNextButtonOnClickHandler(e: MouseEvent) {
+    this.paginationNextButtonClickEmitter.emit({ e });
   }
 
   ngOnChanges() {
