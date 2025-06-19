@@ -131,12 +131,16 @@ export class HomePage implements OnInit {
     return processedData;
   }
 
-  ngOnInit(): void {
+  populatePokeData() {
     this.pokeService.getAllPokemon().subscribe((res: any) => {
       const processedData = this.processApiData(res);
 
       // Assigns transformed data array to pokemonData array
       this.pokeData = processedData;
     });
+  }
+
+  ngOnInit(): void {
+    this.populatePokeData();
   }
 }
