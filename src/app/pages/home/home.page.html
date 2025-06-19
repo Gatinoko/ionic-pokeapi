@@ -12,7 +12,7 @@
     <app-pokelist
       style="overflow-y: scroll"
       [pokeData]="this.pokeData"
-      (listItemClickEmitter)="pokeListItemOnClickHandler($event)"
+      (listItemClickEmitter)="this.pokeListItemOnClickHandler($event)"
     />
 
     <!-- Pagination controls -->

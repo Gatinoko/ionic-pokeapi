@@ -49,7 +49,7 @@ export class HomePage implements OnInit {
    */
   paginationPrevButtonOnClickHandler(e: { e: MouseEvent }) {
     const prevPageUrl = this.pokeData.previous;
-    if (prevPageUrl) this.flipPokeList(prevPageUrl);
+    if (prevPageUrl) this.flipPokeList(prevPageUrl, 'backwards');
   }
 
   /**
@@ -57,13 +57,13 @@ export class HomePage implements OnInit {
    */
   paginationNextButtonOnClickHandler(e: { e: MouseEvent }) {
     const nextPageUrl = this.pokeData.next;
-    if (nextPageUrl) this.flipPokeList(nextPageUrl);
+    if (nextPageUrl) this.flipPokeList(nextPageUrl, 'forwards');
   }
 
   /**
    * Updates pokeData according to the pagination direction
    */
-  flipPokeList(url: string) {
+  flipPokeList(url: string, direction: 'forwards' | 'backwards') {
     const parsedQueryParams = parseQueryParams(url);
     const pageOffsetValue = Number(parsedQueryParams['offset']);
 
@@ -73,8 +73,15 @@ export class HomePage implements OnInit {
       // Assigns transformed data array to pokemonData array
       this.pokeData = processedData;
 
-      // Raises pagination currentPage by 1
-      this.pokeListPagination.currentPage++;
+      // Raises or lowers pagination currentPage by 1
+      switch (direction) {
+        case 'forwards':
+          this.pokeListPagination.currentPage++;
+          break;
+        case 'backwards':
+          this.pokeListPagination.currentPage--;
+          break;
+      }
     });
   }
 
