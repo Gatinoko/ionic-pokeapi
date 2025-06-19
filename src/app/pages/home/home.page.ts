@@ -5,6 +5,7 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
 import { Pokemon } from 'src/app/types/Pokemon';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
+import { parseQueryParams } from 'src/utils/parseQueryParams';
 
 @Component({
   standalone: false,
@@ -15,7 +16,20 @@ import { FavoritesService } from 'src/app/services/favorites-service.service';
 export class HomePage implements OnInit {
   @ViewChild(DetailsModalComponent) detailsModal!: DetailsModalComponent;
 
-  pokemonData: Pick<Pokemon, 'name' | 'sprites'>[] = [];
+  pokemonData: {
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Pick<Pokemon, 'name' | 'sprites'>[];
+  } = {
+    count: 0,
+    next: null,
+    previous: null,
+    results: [],
+  };
+
+  currentPage: number = 1;
+  totalPages?: number = undefined;
 
   constructor(
     private pokeService: PokeService,
@@ -47,6 +61,45 @@ export class HomePage implements OnInit {
   openModal() {
     this.detailsModal.isModalOpen = true;
   }
+
+  paginationPrevButtonOnClickHandler() {
+    const prevPageUrl = this.pokemonData.previous;
+
+    if (prevPageUrl) {
+      const parsedQueryParams = parseQueryParams(prevPageUrl);
+      const pageOffsetValue = Number(parsedQueryParams['offset']);
+
+      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
+        const processedData = this.processApiData(res);
+
+        // Assigns transformed data array to pokemonData array
+        this.pokemonData = processedData;
+
+        // Lowers pagination currentPage by 1
+        this.currentPage--;
+      });
+    }
+  }
+
+  paginationNextButtonOnClickHandler() {
+    const nextPageUrl = this.pokemonData.next;
+
+    if (nextPageUrl) {
+      const parsedQueryParams = parseQueryParams(nextPageUrl);
+      const pageOffsetValue = Number(parsedQueryParams['offset']);
+
+      this.pokeService.getAllPokemon(pageOffsetValue).subscribe((res: any) => {
+        const processedData = this.processApiData(res);
+
+        // Assigns transformed data array to pokemonData array
+        this.pokemonData = processedData;
+
+        // Raises pagination currentPage by 1
+        this.currentPage++;
+      });
+    }
+  }
+
   private processApiData(res: any) {
     let processedData: {
       count: number;
@@ -63,7 +116,12 @@ export class HomePage implements OnInit {
     // Debug
     // console.log(res);
 
-    // Adds "sprites" property into original API call object
+    // Assigns the server response's "count", "next", and "previous" properties to processedData object
+    processedData.count = res.count;
+    processedData.next = res.next;
+    processedData.previous = res.previous;
+
+    // Adds "sprites" property into original API call object and pushes it to processedData object results array
     res.results.forEach((v: { name: string; url: string }, i: number) => {
       const pokeId = v.url.split('/').filter(Boolean).pop();
 
@@ -88,10 +146,13 @@ export class HomePage implements OnInit {
 
   ngOnInit(): void {
     this.pokeService.getAllPokemon().subscribe((res: any) => {
-      const data = this.processApiData(res);
+      const processedData = this.processApiData(res);
 
       // Assigns transformed data array to pokemonData array
-      this.pokemonData = data.results;
+      this.pokemonData = processedData;
+
+      // Assigns total pages pagination property
+      this.totalPages = Math.ceil(this.pokemonData.count / 20);
     });
   }
 }
