@@ -25,7 +25,6 @@ export class PokelistPaginationComponent implements OnChanges {
     previous: string | null;
     results: Pick<Pokemon, 'name' | 'sprites'>[];
   };
-
   @Output() paginationPrevButtonClickEmitter = new EventEmitter<{
     e: MouseEvent;
   }>();
@@ -36,7 +35,7 @@ export class PokelistPaginationComponent implements OnChanges {
   currentPage: number = 1;
   totalPages?: number = undefined;
 
-  constructor(private pokeService: PokeService) {}
+  constructor() {}
 
   paginationPrevButtonOnClickHandler(e: MouseEvent) {
     this.paginationPrevButtonClickEmitter.emit({ e });
@@ -46,8 +45,11 @@ export class PokelistPaginationComponent implements OnChanges {
     this.paginationNextButtonClickEmitter.emit({ e });
   }
 
-  ngOnChanges() {
-    // Assigns total pages pagination property
+  refreshTotalPagesCount() {
     this.totalPages = Math.ceil(this.pokeData.count / 20);
+  }
+
+  ngOnChanges() {
+    this.refreshTotalPagesCount();
   }
 }
