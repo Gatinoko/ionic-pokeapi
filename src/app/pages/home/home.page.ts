@@ -3,7 +3,7 @@ import { IonModal } from '@ionic/angular';
 import { PokeService } from 'src/app/services/poke-service.service';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
-import { Pokemon } from 'src/app/types/Pokemon';
+import { Pokemon } from 'src/types/Pokemon';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
 import { parseQueryParams } from 'src/utils/parseQueryParams';
 import { PokelistPaginationComponent } from 'src/app/components/pokelist-pagination/pokelist-pagination.component';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Pokemon } from '../types/Pokemon';
+import { Pokemon } from '../../types/Pokemon';
 
 const FAVORITES_KEY = 'favorites';
 

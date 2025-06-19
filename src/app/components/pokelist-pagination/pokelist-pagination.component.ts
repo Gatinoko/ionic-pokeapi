@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { PokeService } from 'src/app/services/poke-service.service';
-import { Pokemon } from 'src/app/types/Pokemon';
+import { Pokemon } from 'src/types/Pokemon';
 import { parseQueryParams } from 'src/utils/parseQueryParams';
 
 @Component({

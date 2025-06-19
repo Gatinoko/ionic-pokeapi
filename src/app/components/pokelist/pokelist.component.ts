@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { Pokemon } from 'src/app/types/Pokemon';
+import { Pokemon } from 'src/types/Pokemon';
 
 @Component({
   standalone: true,

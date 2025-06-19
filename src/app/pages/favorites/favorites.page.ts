@@ -3,7 +3,7 @@ import { ViewDidEnter } from '@ionic/angular';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
 import { PokeService } from 'src/app/services/poke-service.service';
-import { Pokemon } from 'src/app/types/Pokemon';
+import { Pokemon } from 'src/types/Pokemon';
 
 @Component({
   standalone: false,

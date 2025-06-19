@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { IonicModule, IonModal } from '@ionic/angular';
-import { Pokemon } from 'src/app/types/Pokemon';
+import { Pokemon } from 'src/types/Pokemon';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
 
 @Component({
