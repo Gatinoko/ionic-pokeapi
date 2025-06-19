@@ -9,13 +9,15 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { IonicModule, IonModal } from '@ionic/angular';
 import { Pokemon } from 'src/types/Pokemon';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
+import { TitleCasePipe } from '@angular/common';
+import { HyphenToSpacePipe } from 'src/app/pipes/hyphen-to-space.pipe';
 
 @Component({
   standalone: true,
   selector: 'app-details-modal',
   templateUrl: './details-modal.component.html',
   styleUrls: ['./details-modal.component.scss'],
-  imports: [IonicModule],
+  imports: [IonicModule, TitleCasePipe, HyphenToSpacePipe],
 })
 export class DetailsModalComponent {
   @ViewChild(IonModal) modal!: IonModal;

@@ -53,7 +53,9 @@
               <ion-col>
                 <ion-label><h1>Name</h1></ion-label>
                 <ion-text
-                  ><p>{{ pokeInfo.name }}</p></ion-text
+                  ><p>
+                    {{ pokeInfo.name | hyphenToSpace | titlecase }}
+                  </p></ion-text
                 >
               </ion-col>
             </ion-row>
@@ -68,7 +70,9 @@
                 <ion-label><h1>Abilities</h1></ion-label>
                 @for (ability of pokeInfo.abilities; track $index) {
                 <ion-text
-                  ><p>{{ ability.ability.name }}</p></ion-text
+                  ><p>
+                    {{ ability.ability.name | hyphenToSpace | titlecase }}
+                  </p></ion-text
                 >
                 }
               </ion-col>
@@ -112,7 +116,9 @@
                 <ion-label><h1>Types</h1></ion-label>
                 @for (type of pokeInfo.types; track $index) {
                 <ion-text
-                  ><p>{{ type.type.name }}</p></ion-text
+                  ><p>
+                    {{ type.type.name | hyphenToSpace | titlecase }}
+                  </p></ion-text
                 >
                 }
               </ion-col>
