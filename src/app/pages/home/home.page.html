@@ -11,7 +11,7 @@
     <!-- List with all pokemon -->
     <app-pokelist
       style="overflow-y: scroll"
-      [pokeData]="this.pokeData"
+      [pokeData]="this.pokeData.results"
       (listItemClickEmitter)="this.pokeListItemOnClickHandler($event)"
     />
 

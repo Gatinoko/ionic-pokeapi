@@ -10,12 +10,7 @@ import { Pokemon } from 'src/app/types/Pokemon';
   imports: [IonicModule],
 })
 export class PokelistComponent {
-  @Input({ required: true }) pokeData!: {
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: Pick<Pokemon, 'name' | 'sprites'>[];
-  };
+  @Input({ required: true }) pokeData!: Pick<Pokemon, 'name' | 'sprites'>[];
   @Output() listItemClickEmitter = new EventEmitter<{
     e: MouseEvent;
     pokeName: string;
