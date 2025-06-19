@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { ViewDidEnter } from '@ionic/angular';
 import { DetailsModalComponent } from 'src/app/components/details-modal/details-modal.component';
 import { FavoritesService } from 'src/app/services/favorites-service.service';
@@ -27,6 +27,20 @@ export class FavoritesPage implements ViewDidEnter {
   listItemOnClickHandler(e: { e: MouseEvent; pokeName: string }) {
     this.openModal();
     this.setModalData(e.pokeName);
+  }
+
+  /**
+   * Handler for when the user clicks on the details modal favorite button
+   */
+  favoriteButtonOnClickHandler(e: { e: MouseEvent }) {
+    this.refreshFavorites();
+  }
+
+  /**
+   * Refreshes favorites data
+   */
+  refreshFavorites() {
+    this.favoritesData = this.favoritesService.getFavorites();
   }
 
   /**
@@ -59,6 +73,6 @@ export class FavoritesPage implements ViewDidEnter {
   }
 
   ionViewDidEnter(): void {
-    this.favoritesData = this.favoritesService.getFavorites();
+    this.refreshFavorites();
   }
 }

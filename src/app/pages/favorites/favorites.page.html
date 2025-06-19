@@ -5,7 +5,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-details-modal />
+  <app-details-modal
+    (favoriteButtonClickEmitter)="favoriteButtonOnClickHandler($event)"
+  />
 
   <!-- List with the user's favorite pokemon -->
   <app-pokelist
