@@ -8,7 +8,9 @@
             (click)="dismissModal()"
           ></ion-back-button>
         </ion-buttons>
-        <ion-title>{{ pokeInfo.name }} Details</ion-title>
+        <ion-title
+          >{{ pokeInfo.name | hyphenToSpace | titlecase }} Details</ion-title
+        >
       </ion-toolbar>
     </ion-header>
 
